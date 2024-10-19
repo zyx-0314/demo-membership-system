@@ -1,0 +1,2 @@
+link should be composed of something like this in env.local
+MONGODB_URI=[mongodb uri connection]/[db-name]
