@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id           String        @id @default(cuid())
+  f_name       String
+  l_name       String?
+  number       String
+  building     String?
+  barangay     String?
+  purok        String?
+  otherAddress String?
+  isDeleted    Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  borrowed     Borrower[]
+  orders       Transaction[]
+}
+
+model Transaction {
+  id         String   @id @default(cuid())
+  customerId String
+  count      Int
+  value      Float
+  status     String
+  isDeleted  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id])
+}
+
+model Borrower {
+  id         String   @id @default(cuid())
+  customerId String
+  status     String
+  count      Int
+  isDeleted  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id])
+}
