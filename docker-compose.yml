@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  postgresql:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database_name
+      POSTGRES_INITDB_DATABASE: your_database_name
+      POSTGRES_INITDB_USER: your_username
+      POSTGRES_INITDB_PASSWORD: your_password
+
+volumes:
+  postgresql_data:
